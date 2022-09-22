@@ -1,3 +1,4 @@
 percobaan penggunaan git
 ini adalah perubahan
 ini perubahan di cabang 1
+perubahan di cabang main
