@@ -8,6 +8,15 @@
                 <div class="card-header">Tambah Data</div>
 
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     {!! Form::open(['url' => 'lecture/store']) !!}
                         <div class="mb-3">
                              {{ Form::label('nidn', 'NIDN') }}

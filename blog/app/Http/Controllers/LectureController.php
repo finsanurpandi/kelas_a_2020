@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lecture;
+use App\Http\Requests\StoreLectureRequest;
 use Session;
 
 class LectureController extends Controller
@@ -20,9 +21,14 @@ class LectureController extends Controller
         return view('lecture.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreLectureRequest $request)
     {
-        Lecture::create($request->all());
+        // $validated = $request->validate([
+        //     'nidn' => 'required|min:10|numeric',
+        //     'nama' => 'required|min:5'
+        // ]);
+
+        Lecture::create($request->validated());
         
         Session::flash('status', 'Input data berhasil!!!');
         return redirect('lecture');
