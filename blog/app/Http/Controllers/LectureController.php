@@ -13,4 +13,9 @@ class LectureController extends Controller
 
         return view('lecture.index')->with($data);
     }
+
+    public function create()
+    {
+        return view('lecture.create');
+    }
 }

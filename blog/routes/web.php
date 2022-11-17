@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function() {
         'as' => 'lecture.'
     ], function(){
         Route::get('/', [LectureController::class, 'index'])->name('index');
+        Route::get('/create', [LectureController::class, 'create'])->name('create');
     });
 
     Route::group([
