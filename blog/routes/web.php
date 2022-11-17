@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LectureController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,7 +22,7 @@ Route::group(['middleware' => 'auth'], function() {
         'prefix' => 'lecture',
         'as' => 'lecture.'
     ], function(){
-        Route::get('/', [HomeController::class, 'lecture'])->name('show');
+        Route::get('/', [LectureController::class, 'index'])->name('index');
     });
 
     Route::group([
