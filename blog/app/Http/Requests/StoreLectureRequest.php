@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\Titlecase;
+use App\Rules\Usercheck;
 
 class StoreLectureRequest extends FormRequest
 {
@@ -24,8 +26,14 @@ class StoreLectureRequest extends FormRequest
     public function rules()
     {
         return [
-            'nidn' => 'required|min:10|numeric',
-            'nama' => 'required|min:5'
+            'nidn' => ['required',
+                        'min:10',
+                        'numeric',
+                        new Usercheck
+        ],
+            'nama' => ['required', 
+                        'min:5',
+                        new Titlecase]
         ];
     }
 }
