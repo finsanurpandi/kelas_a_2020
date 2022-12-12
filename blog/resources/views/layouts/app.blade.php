@@ -62,6 +62,9 @@
                             <a class="nav-link" href="/student">Student</a>
                         </li>
                         @endcan
+                        <li class="nav-item">
+                            <a class="nav-link" href="/lecture/recycle_bin">Recycle Bin</a>
+                        </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -104,15 +107,33 @@
                 $message = '';
                 foreach($errors->all() as $error)
                 {
-                    $message .= "<li>{{ $error }}</li>";
+                    $message .= $error."<br/>";
                 }
             @endphp
             Swal.fire({
                 title: 'Error',
-                text: "{!! $message !!}",
+                html: "{!! $message !!}",
                 icon: 'error',
             })
         @endif
+
+        function deleteConfirmation(nama)
+        {
+            var form = event.target.form;
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                icon: 'warning',
+                html: "Anda akan menghapus data dengan nama <strong>"+nama+"</strong> dan tidak dapat mengembalikannya kembali",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus saja!',
+            }). then((result) => {
+                if(result.value) {
+                    form.submit();
+                }
+            });
+        }
     </script>
 </body>
 </html>

@@ -5,14 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">Recycle Bin</div>
 
                 <div class="card-body">
-                    <a href="lecture/create" class="btn btn-primary">TAMBAH DATA</a>
+                    {!! Form::open(['url' => 'lecture/restore/all', 'method' => 'POST']) !!}
+                        {{ Form::submit('Restore All', ['class' => 'btn btn-primary btn-sm']) }}
+                    {!! Form::close() !!}
+
+                    {!! Form::open(['url' => 'lecture/empty', 'method' => 'POST']) !!}
+                        {{ Form::submit('Empty', ['class' => 'btn btn-danger btn-sm']) }}
+                    {!! Form::close() !!}
+
                     <hr/>
-                    @if($lectures->isEmpty())
-                        Tidak ada ada.
-                    @else
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -25,29 +29,32 @@
                         </thead>
                         <tbody>
                             @php $no=1; @endphp
-                            @foreach ($lectures as $lecture)
+                            @foreach ($trash as $tr)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $lecture->nidn }}</td>
-                                <td>{{ $lecture->nama }}</td>
+                                <td>{{ $tr->nidn }}</td>
+                                <td>{{ $tr->nama }}</td>
                                 <td>
-                                    @if($lecture->status == 1)
+                                    @if($tr->status == 1)
                                         <span class="badge text-bg-success">AKTIF</span>
                                     @else
                                         <span class="badge text-bg-danger">TIDAK AKTIF</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="/lecture/{{ $lecture->nidn }}/edit" class="btn btn-success btn-sm">EDIT</a>
-                                    {!! Form::open(['url' => 'lecture/'.$lecture->nidn, 'method' => 'DELETE']) !!}
-                                        {{ Form::button('HAPUS', ['class' => 'btn btn-danger btn-sm', 'onclick' => "deleteConfirmation('".$lecture->nama."')"]) }}
+                                    {!! Form::open(['url' => 'lecture/'.$tr->nidn.'/restore', 'method' => 'POST']) !!}
+                                        {{ Form::submit('Restore', ['class' => 'btn btn-success btn-sm']) }}
+                                    {!! Form::close() !!}
+
+                                    {!! Form::open(['url' => 'lecture/'.$tr->nidn.'/delete', 'method' => 'POST']) !!}
+                                        {{ Form::submit('Destroy', ['class' => 'btn btn-danger btn-sm']) }}
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    @endif
+                    
                 </div>
             </div>
         </div>
