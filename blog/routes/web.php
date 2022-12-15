@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/restore/all', [LectureController::class, 'restore_all'])->name('restore.all');
         Route::post('/{id}/delete', [LectureController::class, 'delete'])->name('delete');
         Route::post('/empty', [LectureController::class, 'empty'])->name('empty');
+
+        // relarionship
+        Route::get('/{id}/student', [LectureController::class, 'student'])->name('student');
     });
 
     Route::group([
@@ -42,6 +46,6 @@ Route::group(['middleware' => 'auth'], function() {
         'prefix' => 'student',
         'as' => 'student.'
     ], function(){
-        Route::get('/', [HomeController::class, 'student'])->name('show');
+        Route::get('/', [StudentController::class, 'index'])->name('index');
     });
 });

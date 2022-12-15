@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lecture;
+use App\Models\Department;
 use App\Http\Requests\StoreLectureRequest;
+use Illuminate\Support\Facades\Crypt;
 use Session;
 
 class LectureController extends Controller
@@ -12,6 +14,7 @@ class LectureController extends Controller
     public function index()
     {
         $data['lectures'] = Lecture::all();
+        $data['department'] = Department::find(3)->student;
 
         return view('lecture.index')->with($data);
     }
@@ -94,5 +97,14 @@ class LectureController extends Controller
         Session::flash('status', 'Semua data berhasil dihilangkan!!!');   
         
         return redirect()->back();
+    }
+
+    // relationship
+    public function student($id)
+    {
+        $id = Crypt::decryptString($id);
+        // $data['students'] = Lecture::find($id)->students;
+        $data['students'] = Lecture::findOrFail($id)->students()->orderBy('nama', 'asc')->get();
+        return view('lecture.student')->with($data);
     }
 }

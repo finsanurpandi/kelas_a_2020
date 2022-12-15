@@ -10,6 +10,7 @@
                 <div class="card-body">
                     <a href="lecture/create" class="btn btn-primary">TAMBAH DATA</a>
                     <hr/>
+                    {{ $department}}
                     @if($lectures->isEmpty())
                         Tidak ada ada.
                     @else
@@ -38,6 +39,7 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <a href="/lecture/{{ Crypt::encryptString($lecture->nidn) }}/student" class="btn btn-warning btn-sm">STUDENT</a>
                                     <a href="/lecture/{{ $lecture->nidn }}/edit" class="btn btn-success btn-sm">EDIT</a>
                                     {!! Form::open(['url' => 'lecture/'.$lecture->nidn, 'method' => 'DELETE']) !!}
                                         {{ Form::button('HAPUS', ['class' => 'btn btn-danger btn-sm', 'onclick' => "deleteConfirmation('".$lecture->nama."')"]) }}
