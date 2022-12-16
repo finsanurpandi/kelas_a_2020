@@ -40,7 +40,7 @@
                                 <td>{{ $student->npm }}</td>
                                 <td>{{ $student->nama }}</td>
                                 <td>{{ $student->kelas }}</td>
-                                <td>{{ $student->lecture }}</td>
+                                <td>{{ $student->lecture->nama }}</td>
                                 <td></td>
                             </tr>
                             @endforeach
