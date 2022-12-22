@@ -47,5 +47,7 @@ Route::group(['middleware' => 'auth'], function() {
         'as' => 'student.'
     ], function(){
         Route::get('/', [StudentController::class, 'index'])->name('index');
+
+        Route::get('/email', [StudentController::class, 'email']);
     });
 });

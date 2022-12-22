@@ -9,6 +9,7 @@
 
                 <div class="card-body">
                     <a href="lecture/create" class="btn btn-primary">TAMBAH DATA</a>
+                    <a href="student/email" class="btn btn-warning">KIRIM EMAIL</a>
                     <hr/> 
                     
 
