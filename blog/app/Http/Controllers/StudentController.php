@@ -23,8 +23,15 @@ class StudentController extends Controller
     public function email()
     {
         $user = User::find(1);
+        $receiver = [
+            'admin1@mail.com',
+            'admin2@mail.com',
+            'admin3@mail.com',
+            'admin4@mail.com',
+            'admin5@mail.com',
+        ];
 
-        Mail::to('finsa@unsur.ac.id')->send(new TestMail($user));
+        Mail::to($receiver)->send(new TestMail($user));
 
         return redirect()->back();
     }
