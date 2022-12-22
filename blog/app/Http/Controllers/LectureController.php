@@ -9,12 +9,16 @@ use App\Http\Requests\StoreLectureRequest;
 use Illuminate\Support\Facades\Crypt;
 use Session;
 
+use Illuminate\Support\Facades\Auth;
+
 class LectureController extends Controller
 {
     public function index()
     {
         $data['lectures'] = Lecture::all();
         $data['department'] = Department::find(3)->student;
+
+        $data['user'] = Auth::user();
 
         return view('lecture.index')->with($data);
     }
