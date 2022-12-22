@@ -9,6 +9,8 @@ use App\Http\Requests\StoreLectureRequest;
 use Illuminate\Support\Facades\Crypt;
 use Session;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Auth;
 
 class LectureController extends Controller
@@ -110,5 +112,13 @@ class LectureController extends Controller
         // $data['students'] = Lecture::find($id)->students;
         $data['students'] = Lecture::findOrFail($id)->students()->orderBy('nama', 'asc')->get();
         return view('lecture.student')->with($data);
+    }
+
+    public function markAsRead(Request $request)
+    {
+        DB::table('notifications')->where('id', $request->id)
+                    ->update([
+                        'read_at' => now()
+                    ]);
     }
 }

@@ -13,7 +13,7 @@
                     @foreach ($user->unreadNotifications as $notification)
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             Username <strong>{{ $notification->data['username'] }}</strong> sudah melakukan login.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="markAsRead('{{ $notification->id }}');"></button>
                           </div>
                           {{-- {{ $notification->markAsRead() }} --}}
                     @endforeach

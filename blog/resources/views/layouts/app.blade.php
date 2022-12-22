@@ -134,6 +134,26 @@
                 }
             });
         }
+
+        function markAsRead(id)
+        {
+            var fetch_status;
+            
+            fetch("{{url('lecture/markAsRead')}}", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')['content']
+                },
+                body: JSON.stringify({
+                    id : id,
+                })
+            })
+            .catch(function (error){
+                console.log(error);
+            });  
+        }
     </script>
 </body>
 </html>

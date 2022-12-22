@@ -39,6 +39,8 @@ Route::group(['middleware' => 'auth'], function() {
 
         // relarionship
         Route::get('/{id}/student', [LectureController::class, 'student'])->name('student');
+
+        Route::post('/markAsRead', [LectureController::class, 'markAsRead']);
     });
 
     Route::group([
