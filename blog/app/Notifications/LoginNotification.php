@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class LoginNotification extends Notification
+class LoginNotification extends Notification implements ShouldQueue
 {
     use Queueable;
     private $user;
@@ -29,8 +29,8 @@ class LoginNotification extends Notification
      */
     public function via($notifiable)
     {
-        // return ['mail'];
-        return ['database'];
+        return ['mail'];
+        // return ['database'];
     }
 
     /**

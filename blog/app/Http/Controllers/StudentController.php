@@ -31,7 +31,7 @@ class StudentController extends Controller
             'admin5@mail.com',
         ];
 
-        Mail::to($receiver)->send(new TestMail($user));
+        Mail::to($receiver)->queue(new TestMail($user));
 
         return redirect()->back();
     }
