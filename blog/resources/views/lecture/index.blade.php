@@ -8,7 +8,19 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    <a href="lecture/create" class="btn btn-primary">TAMBAH DATA</a>
+                    <div class="btn-group">
+                        <a href="lecture/create" class="btn btn-primary">TAMBAH DATA</a>
+                        <a href="lecture/pdf" class="btn btn-danger" target="_blank">PDF</a>
+                        <a href="lecture/export" class="btn btn-success" target="_blank">Export</a>
+                    </div>
+                    <hr/>
+                    <form action="lecture/import" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <input class="form-control" type="file" id="formFile" name="file">
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="IMPORT"/>
+                    </form>
                     <hr/>
                     @foreach ($user->unreadNotifications as $notification)
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -29,6 +41,7 @@
                                 <th>NIDN</th>
                                 <th>NAMA</th>
                                 <th>STATUS</th>
+                                <th>PRODI</th>
                                 <th>AKSI</th>
                             </tr>
                         </thead>
@@ -46,6 +59,7 @@
                                         <span class="badge text-bg-danger">TIDAK AKTIF</span>
                                     @endif
                                 </td>
+                                <td>{{ $lecture->department->name }}</td>
                                 <td>
                                     <a href="/lecture/{{ Crypt::encryptString($lecture->nidn) }}/student" class="btn btn-warning btn-sm">STUDENT</a>
                                     <a href="/lecture/{{ $lecture->nidn }}/edit" class="btn btn-success btn-sm">EDIT</a>

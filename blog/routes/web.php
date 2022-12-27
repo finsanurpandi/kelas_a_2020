@@ -41,6 +41,13 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/{id}/student', [LectureController::class, 'student'])->name('student');
 
         Route::post('/markAsRead', [LectureController::class, 'markAsRead']);
+
+        // PDF
+        Route::get('/pdf', [LectureController::class, 'pdf'])->name('pdf');
+
+        // EXcel
+        Route::get('/export', [LectureController::class, 'export'])->name('export');
+        Route::post('/import', [LectureController::class, 'import'])->name('import');
     });
 
     Route::group([

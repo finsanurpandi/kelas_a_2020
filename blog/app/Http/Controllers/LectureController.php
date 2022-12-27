@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 
+use PDF;
+
+use Excel;
+use App\Exports\LecturesExport;
+use App\Imports\LecturesImport;
+use App\Exports\DepartmentsExport;
+
 class LectureController extends Controller
 {
     public function index()
@@ -27,7 +34,8 @@ class LectureController extends Controller
 
     public function create()
     {
-        return view('lecture.create');
+        $data['departments'] = Department::pluck('name', 'id');
+        return view('lecture.create')->with($data);
     }
 
     public function store(StoreLectureRequest $request)
@@ -46,6 +54,7 @@ class LectureController extends Controller
     public function edit($id)
     {
         $data['lecture'] = Lecture::find($id);
+        $data['departments'] = Department::pluck('name', 'id');
         return view('lecture.edit')->with($data);
     }
 
@@ -120,5 +129,29 @@ class LectureController extends Controller
                     ->update([
                         'read_at' => now()
                     ]);
+    }
+
+    // PDF
+    public function pdf()
+    {
+        $data['lectures'] = Lecture::with('department')->get();
+        $pdf = PDF::loadview('lecture.pdf', $data);
+
+        return $pdf->stream('coba_pdf.pdf');
+    }
+
+    // EXCEL
+    public function export()
+    {
+        return Excel::download(new DepartmentsExport, 'lectures.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new LecturesImport, $request->file('file'));
+
+        Session::flash('status', 'Data berhasil di import');   
+
+        return redirect()->back();
     }
 }
